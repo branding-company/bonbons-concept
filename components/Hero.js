@@ -25,7 +25,7 @@ export function Hero() {
       try {
         const { Bon } = await import('./bonbonEngine');
         if (dead) return;
-        const anchor = () => (innerWidth < 760 ? { x: 0, y: 0.36, s: 1.45 } : { x: 0.5, y: 0, s: 1.7 });
+        const anchor = () => (innerWidth < 760 ? { x: 0, y: 0.34, s: 1.0 } : { x: 0.52, y: 0, s: 1.15 });
         const place = (b) => {
           const c = b.screenCenter(), r = b.screenRadius(), rr = root.current.getBoundingClientRect(), h = hit.current;
           if (!h) return; h.style.left = c.x - rr.left - r + 'px'; h.style.top = c.y - rr.top - r + 'px'; h.style.width = h.style.height = r * 2 + 'px';

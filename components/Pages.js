@@ -186,7 +186,7 @@ export function Corporate() {
             <div className="lid" style={{ transitionDelay: '0s' }}>
               <div className="lidface"><span className="foil">Anush</span><span className="foil small">hand-painted · Yerevan</span></div>
               <Ribbon color={rc} on />
-              {where !== 'bon' && <div className="logoplate foilmark">{mark}</div>}
+              {where !== 'bon' && <div className="logoplate">{mark}</div>}
             </div>
           </div>
           {where !== 'lid' && <div className="bonrow">{BONBONS.slice(0, 5).map((b) => <div key={b.slug} className="bl"><Orb b={b} size={90} cup={false} /><i>{logo ? <img src={logo} alt="" /> : name.slice(0, 2)}</i></div>)}</div>}
