@@ -304,3 +304,4 @@ input[type=range]{accent-color:var(--cocoa);padding:0;background:none;height:32p
 @media (max-width:1560px){html:lang(hy) .tag{display:none}}
 @media (max-width:1480px){html:lang(ru) .tag{display:none}}
 @media (max-width:1250px){.tag{display:none}}
+@media (max-width:760px){html:lang(hy) .hero h1{font-size:clamp(32px,9.6vw,46px)}html:lang(hy) .hero .eyebrow{margin-bottom:8px}}

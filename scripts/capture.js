@@ -3,7 +3,7 @@
 // Needs Playwright (globally installed or in node_modules).
 const { chromium } = require('playwright');
 const path = require('path');
-const [, , ORIGIN = 'http://localhost:8124', OUT = 'showcase/screens'] = process.argv;
+const [, , ORIGIN = 'http://localhost:8124', OUT = 'showcase/screens', ONLY] = process.argv; // ONLY: optional feature-name prefix, e.g. 10-
 
 const FEATURES = [
   ['01-hero-paint', async (p, m) => { await p.goto(`${ORIGIN}/en/`, { waitUntil: 'networkidle' }); await p.waitForTimeout(6500); await stroke(p, m, 3); }],
@@ -15,7 +15,7 @@ const FEATURES = [
   ['07-bonbon-page', async (p, m) => { await p.goto(`${ORIGIN}/en/collection/pomegranate-ganache/`, { waitUntil: 'networkidle' }); await p.waitForTimeout(2600); }],
   ['08-flavour-finder', async (p, m) => { await p.goto(`${ORIGIN}/en/finder/`, { waitUntil: 'networkidle' }); for (let i = 0; i < 5; i++) { await p.locator('.qa button').nth([0, 2, 0, 1, 0][i]).click(); await p.waitForTimeout(250); } await p.waitForTimeout(1200); }],
   ['09-occasions', async (p, m) => { await p.goto(`${ORIGIN}/en/occasions/`, { waitUntil: 'networkidle' }); await p.waitForTimeout(800); }],
-  ['10-gift-yerevan', async (p, m) => { await p.goto(`${ORIGIN}/en/gift/`, { waitUntil: 'networkidle' }); await p.fill('input[required] >> nth=0', 'Ani Petrosyan'); await p.waitForTimeout(500); }],
+  ['10-gift-yerevan', async (p, m) => { await p.goto(`${ORIGIN}/en/gift/`, { waitUntil: 'networkidle' }); await p.locator('.fld', { hasText: 'Recipient name' }).locator('input').fill('Ani Petrosyan'); await p.locator('.fld', { hasText: 'Address in Yerevan' }).locator('input').fill('Tumanyan 12, Yerevan'); await p.locator('.chk input').check(); await p.waitForTimeout(500); }],
   ['11-gift-diaspora', async (p, m) => { await p.goto(`${ORIGIN}/en/gift/`, { waitUntil: 'networkidle' }); await p.locator('.tabs button').nth(1).click(); await p.locator('.curs button', { hasText: 'USD' }).click(); await p.waitForTimeout(600); }],
   ['12-corporate', async (p, m) => { await p.goto(`${ORIGIN}/en/corporate/`, { waitUntil: 'networkidle' }); await p.fill('input[maxlength="28"]', 'Nairit Group'); await p.fill('input[type=number]', '120'); await p.waitForTimeout(700); }],
   ['13-workshops', async (p, m) => { await p.goto(`${ORIGIN}/en/workshops/`, { waitUntil: 'networkidle' }); await p.locator('.calgrid button.has').nth(1).click(); await p.locator('.slots button:not([disabled])').first().click(); await p.waitForTimeout(600); }],
@@ -47,7 +47,7 @@ async function build(p, m, close) {
   const b = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--no-sandbox'] });
   for (const [kind, vp, dsf, mob] of [['desktop', { width: 1440, height: 900 }, 1.25, false], ['phone', { width: 390, height: 844 }, 2, true]]) {
     const ctx = await b.newContext({ viewport: vp, deviceScaleFactor: dsf, hasTouch: mob, isMobile: mob });
-    for (const [name, fn] of FEATURES) {
+    for (const [name, fn] of FEATURES.filter(([n]) => !ONLY || n.startsWith(ONLY))) {
       const p = await ctx.newPage(); const errs = [];
       p.on('pageerror', (e) => errs.push(e.message));
       try { await fn(p, mob); await p.screenshot({ path: path.join(OUT, kind, `${name}.png`) }); console.log(kind, name, errs.length ? 'ERR ' + errs.join('|') : 'ok'); }
