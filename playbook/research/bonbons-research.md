@@ -39,3 +39,9 @@ Pattern: global brands win on gifting, packaging and story; the box builders are
 - Kristelle URL/screenshots, to check we don't overlap.
 - Native Armenian sources for gifting customs (New Year, weddings, christenings).
 - Real production/pricing facts are unavailable: all prices, stock and lead times will be marked as sample data.
+
+## Addendum (2026-11-08): local brands named by Ilona
+Ilona: Armenian chocolate brands are easiest to find on Instagram. Named: Dream Chocolates, Lamelie, Dulchis, Inspire. All sell boxes for different occasions (per Ilona).
+- Web search could not read Instagram. Only "Dream Chocolate" turned up (Spyur directory: handmade chocolate, Amiryan St 4/5, Yerevan, daily 10:00-22:00; no box or price detail). Lamelie, Dulchis and Inspire returned nothing for Yerevan.
+- Not verified, so not quoted: their boxes, prices, delivery or online ordering. To use them as benchmarks, Ilona should send Instagram screenshots of their occasion boxes.
+- Takeaway for the concept (from Ilona's input only): occasion boxes are the local norm, so occasion collections must be a first-class section, and the differentiator is not "has occasion boxes" but "you build, see and send it".

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anush Concept: Brand Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Nunito:wght@400;700;800&family=Noto+Serif:ital,wght@0,500..900;1,500..900&family=Noto+Serif+Armenian:wght@500..900&family=Noto+Sans+Armenian:wght@400..800&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+body{overflow:auto;height:auto;background:var(--cream)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(16px,3vw)}
+header.top{padding:88px 0 40px}
+.kick{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+h1{font-size:clamp(48px,9vw,128px);line-height:.88;margin:14px 0 18px}
+h2{font-size:clamp(32px,5vw,64px);line-height:.95;margin-bottom:18px}
+h3{font-family:var(--display);font-variation-settings:"opsz" 72,"SOFT" 100;font-weight:800;font-size:26px;margin-bottom:6px}
+section{padding:56px 0;border-top:2px solid rgba(42,20,12,.12)}
+p.lead{max-width:640px;font-weight:700;font-size:18px;opacity:.85}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:#fff8ee;border-radius:26px;padding:24px;box-shadow:0 18px 40px -26px rgba(42,20,12,.55)}
+.card.rec{outline:3px solid var(--pom);position:relative}
+.card.rec::after{content:"Recommended";position:absolute;top:-13px;right:18px;background:var(--pom);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:99px}
+.nm{font-family:var(--display);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;font-weight:900;font-style:italic;font-size:64px;line-height:1;letter-spacing:-.03em}
+.mean{font-weight:800;font-size:13px;letter-spacing:.04em;margin:8px 0 14px;opacity:.75}
+.tl p{margin:6px 0;font-size:15px}.tl b{display:inline-block;width:28px;font-size:11px;letter-spacing:.1em;opacity:.55}
+.tl .hy{font-family:'Noto Serif Armenian',serif;font-weight:700}
+.risk{margin-top:12px;font-size:13px;opacity:.75;font-weight:700}
+.marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.mk{border-radius:26px;padding:34px 24px;min-height:180px;display:grid;place-content:center;text-align:center;gap:10px}
+.mk .wm{font-family:var(--display);font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;font-weight:900;font-style:italic;font-size:64px;letter-spacing:-.035em;line-height:1}
+.mk .wmh{font-family:'Noto Serif Armenian',serif;font-weight:900;font-size:50px;line-height:1}
+.mk small{font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:11px;opacity:.7}
+.pal{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.sw{border-radius:22px;padding:70px 14px 14px;font-weight:800;font-size:12px;line-height:1.35;box-shadow:inset 0 -14px 20px rgba(0,0,0,.12),inset 0 10px 16px rgba(255,255,255,.35)}
+.type{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.tp .big{font-size:56px;line-height:1}
+.bon{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.bb{background:#fff8ee;border-radius:24px;padding:18px;display:grid;gap:6px;position:relative;overflow:hidden}
+.bb .orb{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0 7%,color-mix(in srgb,var(--c) 70%,#fff) 10%,var(--c) 50%,color-mix(in srgb,var(--c) 55%,#000));box-shadow:0 14px 22px -12px var(--c)}
+.bb h4{font-family:var(--display);font-variation-settings:"opsz" 72,"SOFT" 100;font-weight:800;font-size:21px;line-height:1.05;margin-top:6px}
+.bb .ru,.bb .hy{font-size:13px;font-weight:700;opacity:.7}
+.bb .hy{font-family:'Noto Serif Armenian',serif}
+.bb p{font-size:13.5px;font-weight:600;opacity:.85}
+.bb .st{font-style:italic;opacity:.65}
+.bb .no{position:absolute;right:14px;top:10px;font-weight:900;font-size:12px;opacity:.35}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:20px}
+.tier{border-radius:24px;padding:22px;background:var(--cocoa);color:var(--cream)}
+.tier b{font-family:var(--display);font-size:46px;font-variation-settings:"opsz" 144,"SOFT" 100;font-weight:900;display:block;line-height:1}
+.tier span{font-weight:800;font-size:14px}
+.tier em{display:block;font-style:normal;font-size:12px;opacity:.7;margin-top:6px}
+.map{columns:2 280px;column-gap:30px;font-weight:700;font-size:15px}
+.map li{margin:0 0 8px;break-inside:avoid}
+.map ul{margin:4px 0 0 18px;font-weight:600;opacity:.8;font-size:14px}
+.opens{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.op{background:#fff8ee;border-radius:28px;overflow:hidden;box-shadow:0 22px 44px -28px rgba(42,20,12,.6);display:flex;flex-direction:column}
+.op img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.op .bd{padding:22px;display:grid;gap:10px;flex:1;align-content:start}
+.op .cta{justify-self:start;text-decoration:none;margin-top:8px}
+.ck li{margin:0 0 10px 18px;font-weight:700;font-size:15px}
+.note{background:#ffe9c9;border-radius:18px;padding:14px 18px;font-weight:700;font-size:14px;margin-top:18px}
+@media (max-width:640px){header.top{padding-top:80px}.nm{font-size:52px}}
+</style>
+</head>
+<body>
+<div class="nav"><a class="logo" href="#">Anush</a><div class="right"><span class="tag">Concept · Step 2</span></div></div>
+<div class="wrap">
+<header class="top">
+  <div class="kick">Fictional brand · label “Concept” · all prices and facts are samples</div>
+  <h1 class="display">Edible <i>couture.</i></h1>
+  <p class="lead">Step 2 for approval: three names, the wordmark, palette, type, the 16 bonbons, the site structure, and three live openings to touch. My recommendation is at the end of each part.</p>
+</header>
+
+<section id="names">
+  <div class="kick">01 · Name</div><h2 class="display">Three names, <i>one to choose.</i></h2>
+  <div class="grid g3">
+    <div class="card rec"><div class="nm">Anush</div><div class="mean">Անուշ · “sweet”, and what Armenians say at the table: enjoy.</div>
+      <div class="tl"><p><b>EN</b>Sweet, painted by hand.</p><p><b>RU</b>Сладость, написанная от руки.</p><p class="hy"><b>HY</b>Ձեռքով նկարված անուշ։</p></div>
+      <p class="risk">Pro: a native word, two syllables, the same in all three scripts, and the name is already a toast. Risk: it is also a common given name (and exists in other food brands), so domain and trademark must be checked.</p></div>
+    <div class="card"><div class="nm">Nur</div><div class="mean">Նուռ · “pomegranate”, the national fruit. Also “light” in neighbouring languages.</div>
+      <div class="tl"><p><b>EN</b>A little jewel, hand-painted.</p><p><b>RU</b>Маленькие драгоценности ручной росписи.</p><p class="hy"><b>HY</b>Փոքրիկ գոհար՝ ձեռքի նկարով։</p></div>
+      <p class="risk">Pro: shortest, strong red identity, fits “jewel colours”. Risk: tied to one flavour; the Turkic/Arabic meaning of “light” may blur the Armenian story.</p></div>
+    <div class="card"><div class="nm">Jan</div><div class="mean">Ջան · the Armenian “dear”, said to people you love.</div>
+      <div class="tl"><p><b>EN</b>Sweets for people you love.</p><p><b>RU</b>Конфеты для тех, кого любишь.</p><p class="hy"><b>HY</b>Անուշ՝ սիրելիների համար։</p></div>
+      <p class="risk">Pro: the most playful and gift-minded. Risk: in English and Russian it reads as the common name Jan, and ջան is colloquial, so it feels less “couture”.</p></div>
+  </div>
+  <div class="note">All Armenian and Russian lines are drafts written by me. Ilona (or a native copywriter) must approve every HY line before any public use.</div>
+</section>
+
+<section id="logo">
+  <div class="kick">02 · Wordmark</div><h2 class="display">A name you can <i>eat.</i></h2>
+  <p class="lead" style="margin-bottom:24px">A soft, heavy italic wordmark with a glossy bonbon dot as the mark. The Armenian wordmark is set in its own serif, so it is never a translation of the Latin one.</p>
+  <div class="marks">
+    <div class="mk" style="background:var(--cream2)"><div class="wm">Anush</div><small>On cream</small></div>
+    <div class="mk" style="background:var(--cocoa);color:var(--cream)"><div class="wm">Anush</div><small>On cocoa</small></div>
+    <div class="mk" style="background:var(--pom);color:#fff3e4"><div class="wm">Anush</div><small>On pomegranate</small></div>
+    <div class="mk" style="background:var(--apricot);color:#2a0f00"><div class="wmh">Անուշ</div><small>Armenian wordmark</small></div>
+  </div>
+</section>
+
+<section id="colour">
+  <div class="kick">03 · Colour</div><h2 class="display">Cocoa and cream, <i>jewels on top.</i></h2>
+  <p class="lead" style="margin-bottom:24px">Cream is the page. Cocoa is the ink. Each bonbon’s own colour takes over a section as you scroll, so the site changes colour like a box does when you open it.</p>
+  <div class="pal">
+    <div class="sw" style="background:#fbf0e1">Cream<br>#FBF0E1</div>
+    <div class="sw" style="background:#2a140c;color:#fff">Cocoa<br>#2A140C</div>
+    <div class="sw" style="background:#ff8a2b">Apricot<br>#FF8A2B</div>
+    <div class="sw" style="background:#c4163a;color:#fff">Pomegranate<br>#C4163A</div>
+    <div class="sw" style="background:#a8cf5a">Pistachio<br>#A8CF5A</div>
+    <div class="sw" style="background:#f07aa0">Rose<br>#F07AA0</div>
+    <div class="sw" style="background:#e0a93a">Gold dust<br>#E0A93A</div>
+    <div class="sw" style="background:#8e3a7e;color:#fff">Mulberry<br>#8E3A7E</div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="kick">04 · Type</div><h2 class="display">A <i>sensual</i> serif, a warm sans.</h2>
+  <div class="type">
+    <div class="card tp"><div class="kick">Display · Fraunces (soft, wonky, italic)</div><div class="big display" lang="en">Sweet, <i>painted</i> by hand</div></div>
+    <div class="card tp"><div class="kick">Russian · Noto Serif</div><div class="big display" lang="ru" style="font-family:'Noto Serif',serif;font-weight:800;font-size:44px">Сладость, <i>написанная</i> от руки</div></div>
+    <div class="card tp"><div class="kick">Armenian · Noto Serif Armenian</div><div class="big" lang="hy" style="font-family:'Noto Serif Armenian',serif;font-weight:800;font-size:44px">Ձեռքով <i>նկարված</i> անուշ</div></div>
+    <div class="card tp"><div class="kick">Body · Nunito / Noto Sans Armenian</div><p style="font-weight:600;font-size:17px">Orchard apricot, mountain thyme, a thin glossy shell. <span lang="hy" style="font-family:'Noto Sans Armenian',sans-serif">Այգու ծիրան, լեռնային ուրց, բարակ փայլուն թաղանթ։</span></p></div>
+  </div>
+  <div class="note">Not used before: Forum, Manrope, IBM Plex, Archivo are all avoided. Fraunces and Noto Serif Armenian lack a shared italic, so Armenian carries emphasis through weight, not slant. A custom Armenian display face is the upgrade path.</div>
+</section>
+
+<section id="bonbons">
+  <div class="kick">05 · Collection</div><h2 class="display">Sixteen <i>bonbons.</i></h2>
+  <p class="lead" style="margin-bottom:24px">Armenian character with classics. Each has its own colour, which drives the section it appears in. “HY” is shown only where I am confident of the word; the rest are marked “HY to be written”.</p>
+  <div class="bon" id="bon"></div>
+  <div class="note">Sample pricing (not real): 4 pcs 4,800 AMD · 9 pcs 10,200 · 16 pcs 17,600 · 25 pcs 26,500. Larger boxes cost less per piece, which is the lever for “bigger boxes”.</div>
+  <div class="tiers">
+    <div class="tier"><b>4</b><span>4,800 AMD</span><em>1,200 per bonbon</em></div>
+    <div class="tier"><b>9</b><span>10,200 AMD</span><em>1,133 per bonbon</em></div>
+    <div class="tier"><b>16</b><span>17,600 AMD</span><em>1,100 per bonbon</em></div>
+    <div class="tier"><b>25</b><span>26,500 AMD</span><em>1,060 per bonbon</em></div>
+  </div>
+</section>
+
+<section id="openings">
+  <div class="kick">06 · The first five seconds</div><h2 class="display">Three openings, <i>live.</i></h2>
+  <p class="lead" style="margin-bottom:24px">Each is a working preview in WebGL. Move the cursor or a finger over them. Open on a phone too.</p>
+  <div class="opens">
+    <div class="op"><img src="img/a.jpg" alt="Opening A"><div class="bd"><div class="kick">A · Touch the shell</div><h3>The glossy bonbon</h3><p>Light glides over a hand-painted shell and the chocolate ripples where you touch it. Press and hold: it cracks, bursts, and the filling colour floods the screen into the next section.</p><p><b>Strongest at:</b> “it makes me hungry”, and the cleanest hand-off into the collection.</p><a class="cta" href="a-touch.html">Open A →</a></div></div>
+    <div class="op"><img src="img/b.jpg" alt="Opening B"><div class="bd"><div class="kick">B · Molten surface</div><h3>The chocolate itself</h3><p>The whole screen is liquid chocolate. Touch ripples it, the light follows your finger, and a long press tears it open to pomegranate.</p><p><b>Strongest at:</b> a pure, sensory first impression. <b>Weakest at:</b> brown on brown, so the brand colours arrive only after the tear.</p><a class="cta" href="b-molten.html">Open B →</a></div></div>
+    <div class="op"><img src="img/c.jpg" alt="Opening C"><div class="bd"><div class="kick">C · Paint the shell</div><h3>You are the painter</h3><p>A giant bonbon breaks out of the frame. Drag to paint it in jewel colours; the whole page takes the colour you choose, then “Pour the filling” floods it.</p><p><b>Strongest at:</b> the brand idea (hand-painted) and the sales path, since the painted bonbon becomes the first one in a box.</p><a class="cta" href="c-paint.html">Open C →</a></div></div>
+  </div>
+  <div class="note"><b>My recommendation: C as the hero, with A’s crack-and-flood as its finale</b> (already how “Pour the filling” ends). B’s liquid surface stays in reserve as the transition into the Build-Your-Box section.</div>
+</section>
+
+<section id="structure">
+  <div class="kick">07 · Structure</div><h2 class="display">One page that <i>sells,</i> and the pages behind it.</h2>
+  <ul class="map">
+    <li>Home (scroll story)<ul><li>Hero → crack → colour flood</li><li>Horizontal-scroll collection</li><li>Build Your Box teaser</li><li>Occasions, atelier story, corporate, diaspora, workshops, FAQ</li></ul></li>
+    <li>Collection<ul><li>16 bonbon pages: cut-open view, tasting notes, ingredients, allergens, best before, pairing</li></ul></li>
+    <li>Build Your Box (signature)<ul><li>4/9/16/25, drag or tap with physics, ribbon, lid ties itself, handwritten card, share by link, AMD price</li></ul></li>
+    <li>Flavour finder (quiz → ready box → add to box)</li>
+    <li>Occasions<ul><li>New Year, Valentine’s, March 8, weddings and christenings, birthdays</li></ul></li>
+    <li>Gifting<ul><li>Yerevan delivery (date, slot, recipient, surprise) and “Send to Armenia” in AMD / USD / EUR / RUB</li></ul></li>
+    <li>Corporate<ul><li>Logo on lid mock-up, quantity tiers, quote form</li></ul></li>
+    <li>Atelier story · Workshops (calendar booking) · Pairing guide · Cart and demo checkout (no real payment) · FAQ</li>
+  </ul>
+</section>
+
+<section id="critique">
+  <div class="kick">08 · Self-critique</div><h2 class="display">What I’d <i>fix</i> before you see more.</h2>
+  <ul class="ck">
+    <li><b>Generic?</b> A glossy brown sphere is a common WebGL demo. What lifts it: the hand-painted couture strokes, the cracking into filling colour, and the colour taking over the page. Without the paint, A and B are nice but could be anyone’s.</li>
+    <li><b>Like Kristelle or the other showcases?</b> I could not see Kristelle (not indexed), so I cannot prove it. Against Ararat and EURO.G: no dark bands, no grid, no mono labels, serif is soft and wonky not classical, cream not basalt. B is dark brown, which is the one place it leans cinematic: that is why I rank it last.</li>
+    <li><b>Still weak:</b> the shell lacks a macro-photo feel (no cocoa dust, no hands). The cut-open view and the “making of” scenes will need the Canva campaign images. The shards read as flat triangles in the preview and need real thickness in the build.</li>
+    <li><b>Performance:</b> I tested in a software renderer only. Real phones should be far faster, but the molten shader (B) is the heaviest and needs a lower-resolution mode.</li>
+    <li><b>Armenian:</b> my Armenian is a draft. The risk of translated-sounding copy is real until a native pass.</li>
+  </ul>
+</section>
+</div>
+<script>
+var B = [
+['Apricot & Thyme','Абрикос и чабрец','Ծիրան և ուրց','#ff8a2b','Orchard-apricot gel and mountain thyme in white-chocolate ganache.','Sunday under grandmother’s tree.'],
+['Pomegranate Ganache','Гранатовая ганаш','Նռան գանաշ','#c4163a','Dark ganache with a pomegranate reduction.','Cracked like the fruit, seeds first.'],
+['Mulberry','Тутовник','Թութ','#8e3a7e','Dried-mulberry confit in milk chocolate.','Summer pavements stained purple.'],
+['Sujukh Praline','Суджух-пралине','Սուջուխ պրալինե','#b0702f','Caramelised walnut praline with a grape-must ribbon.','A village sweet dressed for the city.'],
+['Gata Caramel','Гата-карамель','Գաթա կարամել','#e0a93a','Butter caramel with a crisp gata crumble.','Everything a gata is, in one bite.'],
+['Brandy Truffle','Трюфель с коньяком','Կոնյակի տրյուֆել','#b8612a','Armenian brandy ganache in dark chocolate. Contains alcohol.','For the end of the long dinner.'],
+['Tarragon & Lime','Тархун и лайм','Թարխուն և լայմ','#5fa36a','Tarragon cream and a lime gel in white chocolate.','The green lemonade of childhood, grown up.'],
+['Rose Petal Jam','Розовое варенье','Վարդի մուրաբա','#f07aa0','Rose-petal jam in white chocolate.','A spoonful from the good jar.'],
+['Sea-buckthorn','Облепиха','','#ff9f1c','Tart sea-buckthorn gel in vanilla ganache.','The sharp one. Everyone has a favourite.'],
+['Salted Caramel','Солёная карамель','Աղի կարամել','#c98a3c','Soft caramel with flaked salt in milk chocolate.','The classic, done properly.'],
+['Hazelnut Gianduja','Фундук-джандуя','Ֆնդուկի ջանդույա','#8a4b2a','Roasted-hazelnut gianduja, silky and thick.','Comfort in a shell.'],
+['Coffee & Cardamom','Кофе и кардамон','Սուրճ և հիլ','#5a3a2a','Cezve-style coffee ganache with cardamom.','The morning pot, after dinner.'],
+['Dark 70%','Тёмный 70%','Մուգ շոկոլադ 70%','#2b1810','Single-origin dark ganache (origin: sample).','For people who say they do not like sweets.'],
+['Pistachio','Фисташка','Պիստակ','#a8cf5a','Stone-ground pistachio praline.','Green, proud and a little smug.'],
+['Mountain Honey & Walnut','Горный мёд и грецкий орех','Լեռնային մեղր և ընկույզ','#d9a441','Honey caramel and walnut, finished with gold dust.','The one for the top of the box.'],
+['Quince & Cinnamon','Айва и корица','Սերկևիլ և դարչին','#c9b037','Quince compote with cinnamon in milk chocolate.','Autumn, folded in.']
+];
+document.getElementById('bon').innerHTML = B.map(function(b,i){
+  return '<div class="bb" style="--c:'+b[3]+'"><span class="no">'+String(i+1).padStart(2,'0')+'</span><div class="orb"></div><h4>'+b[0]+'</h4><div class="ru">'+b[1]+'</div><div class="hy">'+(b[2]||'<span style="font-family:Nunito;font-style:italic;opacity:.6">HY to be written</span>')+'</div><p>'+b[4]+'</p><p class="st">“'+b[5]+'”</p></div>';
+}).join('');
+</script>
+</body>
+</html>
