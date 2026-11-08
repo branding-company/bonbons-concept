@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anush Concept: Opening B, Molten Surface</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Nunito:wght@400;700;800&family=Noto+Serif:ital,wght@0,500..900;1,500..900&family=Noto+Serif+Armenian:wght@500..900&family=Noto+Sans+Armenian:wght@400..800&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+body{background:#4a2113;color:#fbeedc}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+.lang{background:rgba(255,240,220,.18)}.lang button[aria-pressed=true]{background:#fbeedc;color:#2a140c}
+.bag{background:#fbeedc;color:#2a140c}
+.big{position:fixed;left:max(16px,3vw);bottom:max(86px,12vh);z-index:5;pointer-events:none;font-size:min(30vw,38vh);line-height:.78;color:#fbeedc;text-shadow:0 3px 0 rgba(255,255,255,.18),0 18px 40px rgba(20,6,0,.45)}
+.copy{position:fixed;right:max(16px,3vw);top:50%;transform:translateY(-50%);z-index:5;max-width:min(380px,42vw);pointer-events:none;text-align:left}
+.copy h1{font-size:clamp(28px,3.6vw,56px);line-height:1}
+.copy p{margin-top:12px;font-weight:700;opacity:.85;font-size:clamp(14px,1.2vw,17px)}
+.hint{position:fixed;right:max(16px,3vw);bottom:max(86px,12vh);z-index:5;display:flex;align-items:center;gap:12px;font-weight:800;font-size:13px;max-width:240px;text-align:right;pointer-events:none}
+.ring{width:46px;height:46px;flex:none}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:3.5}.ring .bg{stroke:rgba(255,240,220,.25)}.ring .fg{stroke:#fbeedc;stroke-linecap:round;stroke-dasharray:126;stroke-dashoffset:126}
+.next{position:fixed;inset:0;z-index:11;display:grid;align-content:end;padding:max(24px,6vw);padding-bottom:max(70px,12vh);color:#fff3e4;opacity:0;pointer-events:none;transition:opacity .7s}
+body.filled .next{opacity:1;pointer-events:auto}
+.next .k{font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+.next h2{font-size:clamp(44px,9vw,150px);line-height:.9;margin:14px 0 20px}
+.next p{max-width:480px;font-weight:700;font-size:clamp(15px,1.5vw,20px)}
+.next .row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.next .cta{background:#fff3e4;color:#7a0a24}
+.big,.copy,.hint{transition:opacity .6s}
+body.filled .big,body.filled .copy,body.filled .hint{opacity:0}
+.next .ghost{padding:15px 22px;border-radius:99px;border:2px solid #fff3e4;font-weight:800}
+.fallback{display:none;position:fixed;inset:0;place-items:center;text-align:center;padding:30px;font-weight:800}
+@media (max-width:700px){.copy{top:22%;max-width:78vw;transform:none}.big{font-size:44vw;bottom:14vh}.hint{bottom:max(24px,4vh);left:16px;right:auto;text-align:left;max-width:70vw}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="fallback" id="fb">WebGL is not available here. On a normal browser the chocolate is live.</div>
+<div class="nav">
+  <a class="logo" href="#">Anush</a>
+  <div class="right"><span class="tag">Concept</span>
+    <div class="lang"><button data-l="en">EN</button><button data-l="ru">RU</button><button data-l="hy">ՀԱՅ</button></div>
+    <button class="bag" aria-label="Box">0</button></div>
+</div>
+<div class="big display" aria-hidden="true"><i>Anush</i></div>
+<div class="copy"><h1 class="display" data-k="h1"></h1><p data-k="sub"></p></div>
+<div class="hint"><span data-k="hint"></span><div class="ring"><svg viewBox="0 0 46 46"><circle class="bg" cx="23" cy="23" r="20"/><circle class="fg" id="fg" cx="23" cy="23" r="20"/></svg></div></div>
+<section class="next">
+  <div class="k">Pomegranate ganache</div>
+  <h2 class="display">Nur, <i>split open.</i></h2>
+  <p>Dark ganache, a ruby reduction, seeds that crack. The colour of the filling takes over the page, then the next section.</p>
+  <div class="row"><button class="cta" data-k="cta"></button><button class="ghost" id="replay" data-k="replay"></button></div>
+</section>
+<script src="lang.js"></script>
+<script>
+// Molten-chocolate hero: height-field shader, ripples where you touch, tear-open reveal.
+var COPYB = {
+  en:{h1:'Touch it. <i>It touches back.</i>',sub:'Armenian bonbons, hand-painted in Yerevan. Sample brand concept.',hint:'Press and hold to break the surface.'},
+  ru:{h1:'Коснитесь. <i>Оно ответит.</i>',sub:'Армянские конфеты ручной росписи. Концепт бренда.',hint:'Удерживайте, чтобы разорвать поверхность.'},
+  hy:{h1:'Դիպչեք։ <i>Այն կպատասխանի։</i>',sub:'Հայկական բոնբոններ՝ ձեռքի նկարով։ Բրենդի կոնցեպտ։',hint:'Պահեք՝ մակերեսը կոտրելու համար։'}
+};
+['en','ru','hy'].forEach(function(l){ for(var k in COPYB[l]) COPY[l][k]=COPYB[l][k]; });
+initLang();
+
+var cv = document.getElementById('c'), fg = document.getElementById('fg');
+var gl = cv.getContext('webgl', { antialias: false, alpha: false });
+if (!gl) { document.getElementById('fb').style.display = 'grid'; } else {
+var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+var fs = [
+'precision highp float;',
+'uniform vec2 uRes;uniform float uT;uniform vec4 uR[8];uniform vec2 uL;uniform vec2 uC;uniform float uRev;uniform vec3 uFill;',
+'float h21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+'float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h21(i),h21(i+vec2(1,0)),f.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x),f.y);}',
+'float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<3;i++){s+=a*vn(p);p*=2.03;a*=.5;}return s;}',
+'float H(vec2 p){',
+'  float h=fbm(p*1.4+vec2(uT*.03,-uT*.02))*.016;',
+'  for(int i=0;i<8;i++){float age=uT-uR[i].z;if(uR[i].w>0.&&age>0.&&age<4.){float d=length(p-uR[i].xy);',
+'    h+=uR[i].w*exp(-age*1.25)*sin(d*30.-age*8.)*exp(-d*3.2)*.0095;',
+'    h-=uR[i].w*exp(-d*d*38.)*exp(-age*2.6)*.03;}}',
+'  return h;}',
+'void main(){',
+'  vec2 uv=gl_FragCoord.xy/uRes;float asp=uRes.x/uRes.y;vec2 p=vec2(uv.x*asp,uv.y);',
+'  float e=.0035;float h=H(p);',
+'  vec3 n=normalize(vec3(-(H(p+vec2(e,0))-H(p-vec2(e,0)))/(2.*e)*5.,-(H(p+vec2(0,e))-H(p-vec2(0,e)))/(2.*e)*5.,1.));',
+'  vec3 V=vec3(0,0,1);vec3 L=normalize(vec3(uL-p,.5));vec3 Hh=normalize(L+V);',
+'  float dif=max(dot(n,L),0.);float spec=pow(max(dot(n,Hh),0.),260.);float sheen=pow(max(dot(n,Hh),0.),30.);',
+'  vec3 r=reflect(-V,n);float strips=pow(smoothstep(.6,.95,sin(r.x*9.+r.y*7.)*.5+.5),2.);',
+'  // reveal mask: noisy expanding hole from the press point',
+'  float R=uRev*(length(vec2(asp,1.))*1.15);float nz=(fbm(p*5.+uT*.2)-.5)*.35;',
+'  float dd=length(p-uC)+nz;float inside=1.-smoothstep(R-.02,R+.02,dd);if(uRev<=0.)inside=0.;',
+'  float rim=smoothstep(R-.16,R,dd)*(1.-smoothstep(R,R+.03,dd))*step(.001,uRev);',
+'  vec3 choc=mix(vec3(.06,.025,.012),vec3(.36,.16,.075),clamp(dif*.95+.12,0.,1.));',
+'  choc+=vec3(1.,.88,.7)*(spec*1.3+sheen*.10+strips*.22);',
+'  vec3 fl=uFill*(.55+.65*dif)+vec3(1.,.8,.7)*(spec*.9+sheen*.18)+uFill*.25*fbm(p*3.+uT*.1);',
+'  vec3 col=mix(choc,fl,inside);col+=vec3(1.,.55,.3)*rim*.9;',
+'  col*=1.-.28*length(uv-.5);',
+'  gl_FragColor=vec4(pow(col,vec3(.92)),1.);}'
+].join('\n');
+function sh(t, s) { var o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(o)); return o; }
+var pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr); gl.useProgram(pr);
+var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+var loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+var U = {}; ['uRes','uT','uR','uL','uC','uRev','uFill'].forEach(function (n) { U[n] = gl.getUniformLocation(pr, n); });
+
+var dpr = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1.25 : 1.5), W, Hh;
+function size() { W = Math.round(innerWidth * dpr); Hh = Math.round(innerHeight * dpr); cv.width = W; cv.height = Hh; gl.viewport(0, 0, W, Hh); }
+size(); addEventListener('resize', size);
+
+var rip = [], R = new Float32Array(32), t0 = performance.now(), T = 0;
+var ptr = { x: .5, y: .5 }, light = { x: .6, y: .8 }, down = false, hold = 0, rev = 0, revC = { x: .5, y: .5 }, state = 'idle', last = 0;
+function toP(e) { var asp = innerWidth / innerHeight; return { x: e.clientX / innerWidth * asp, y: 1 - e.clientY / innerHeight }; }
+function addR(p, a) { rip.push({ x: p.x, y: p.y, t: T, a: a }); if (rip.length > 8) rip.shift(); }
+cv.addEventListener('pointermove', function (e) {
+  var p = toP(e); light.x = p.x; light.y = p.y + .12; var now = performance.now();
+  if (now - last > 50 && state === 'idle') { last = now; addR(p, down ? 1.3 : .6); }
+  revC = p;
+});
+cv.addEventListener('pointerdown', function (e) { down = true; var p = toP(e); revC = p; addR(p, 1.8); cv.setPointerCapture(e.pointerId); });
+function up() { down = false; } cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+document.getElementById('replay').addEventListener('click', function () { document.body.classList.remove('filled'); state = 'idle'; rev = 0; hold = 0; });
+// pomegranate fill, sRGB-ish
+gl.uniform3f(U.uFill, .62, .05, .16);
+// opening gesture so the surface is alive at second zero
+setTimeout(function () { var a = innerWidth / innerHeight; addR({ x: a * .7, y: .55 }, 1.6); }, 400);
+var prev = performance.now();
+(function frame(now) {
+  var dt = Math.min(.05, (now - prev) / 1000); prev = now; T = (now - t0) / 1000;
+  if (state === 'idle') { hold = down ? Math.min(1, hold + dt / 1.1) : Math.max(0, hold - dt * 1.5); if (hold >= 1) { state = 'rev'; } }
+  if (state === 'rev') { rev = Math.min(1, rev + dt / 1.7); if (rev >= .92 && !document.body.classList.contains('filled')) document.body.classList.add('filled'); }
+  fg.style.strokeDashoffset = 126 * (1 - (state === 'idle' ? hold : 1));
+  for (var i = 0; i < 8; i++) { var r = rip[i] || { x: 0, y: 0, t: -99, a: 0 }; R[i * 4] = r.x; R[i * 4 + 1] = r.y; R[i * 4 + 2] = r.t; R[i * 4 + 3] = r.a; }
+  gl.uniform2f(U.uRes, W, Hh); gl.uniform1f(U.uT, T); gl.uniform4fv(U.uR, R); gl.uniform2f(U.uL, light.x, light.y);
+  gl.uniform2f(U.uC, revC.x, revC.y); gl.uniform1f(U.uRev, state === 'rev' ? rev : 0);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); requestAnimationFrame(frame);
+})(performance.now());
+}
+</script>
+<a class="back" href="index.html" style="color:#fbeedc">← Brand board</a>
+</body>
+</html>

@@ -29,8 +29,17 @@ palette, typography, layout, imagery approach and signature feature.
 - **Already in:** portfolio page and the English deck (eurog-redesign, -features,
   -pages, -before-after slides)
 
+## Anush, chocolate bonbons atelier concept (fictional, label "Concept"): approved 2026-11-08
+- **Repo:** branding-company/bonbons-concept (Next.js static export, three.js)
+- **Palette:** cream #FBF0E1 page, cocoa #2A140C ink, jewel colours per bonbon take over sections (apricot #FF8A2B, pomegranate #C4163A, pistachio #A8CF5A, rose #F07AA0, gold dust #E0A93A, mulberry #8E3A7E)
+- **Type:** Fraunces (soft, wonky, heavy italic) display, Nunito body, Noto Serif / Noto Serif Armenian for RU/HY, Caveat for the handwritten gift card
+- **Layout:** editorial and playful, oversized bonbon breaking out of the frame, horizontal-scroll collection, sticky colour transitions. No grids, no dark bands
+- **Imagery:** glossy 3D bonbons rendered in code (three.js), SVG cut-open views; macro photography to be added
+- **Signature:** opening C (paint the shell, then "pour the filling" cracks it into shards and the colour floods the page) + Build Your Box (physics drop, ribbon ties itself, handwritten card, share by link)
+- **Features:** flavour finder quiz, Yerevan delivery and "Send to Armenia" (AMD/USD/EUR/RUB), occasion boxes, corporate logo-on-lid mock-up with price tiers, atelier story scroll, workshop calendar, pairing guide, demo checkout
+
 Already used across showcases (avoid repeating): Forum serif, Manrope,
-IBM Plex Mono/Sans, Archivo; dark basalt/tufa; teal-on-grey technical.
+IBM Plex Mono/Sans, Archivo, Fraunces/Nunito (Anush); dark basalt/tufa; teal-on-grey technical; cream + jewel colours (Anush).
 
 ## Ideas reserved for upcoming projects (keep them distinct)
 - **Chocolate bonbons:** sensual, playful, rich colour; build-your-box

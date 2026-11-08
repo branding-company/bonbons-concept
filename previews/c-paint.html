@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anush Concept: Opening C, Paint the Shell</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Nunito:wght@400;700;800&family=Noto+Serif:ital,wght@0,500..900;1,500..900&family=Noto+Serif+Armenian:wght@500..900&family=Noto+Sans+Armenian:wght@400..800&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+:root{--tint:#ffe1c2;--ink:#ff8a2b}
+body{background:var(--tint);transition:background .8s var(--ease)}
+canvas{position:fixed;inset:0;display:block;z-index:2}
+.stage{position:fixed;inset:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;background:var(--ink);opacity:.18;filter:blur(2px);transition:background .8s var(--ease)}
+.b1{width:56vmax;height:56vmax;right:-14vmax;top:-18vmax}
+.b2{width:26vmax;height:26vmax;left:-8vmax;bottom:-10vmax;opacity:.12}
+.col{position:fixed;left:max(16px,3vw);top:50%;transform:translateY(-50%);z-index:6;max-width:min(560px,52vw);pointer-events:none}
+.col>*{pointer-events:auto}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;display:flex;gap:10px;align-items:center}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--cocoa)}
+h1{font-size:clamp(44px,7.6vw,118px);line-height:.9}
+.sub{margin-top:18px;font-weight:700;font-size:clamp(15px,1.4vw,19px);max-width:430px;opacity:.85}
+.chips{display:flex;gap:12px;margin:26px 0 4px;flex-wrap:wrap}
+.chip{width:46px;height:46px;border-radius:50%;background:var(--c);box-shadow:inset 0 -6px 10px rgba(0,0,0,.2),inset 0 5px 8px rgba(255,255,255,.55),0 8px 16px -8px rgba(40,10,0,.6);transition:transform .35s var(--ease),outline-offset .2s;outline:3px solid transparent;outline-offset:3px;position:relative}
+.chip:hover{transform:translateY(-4px) scale(1.06)}
+.chip:active{transform:scale(.9)}
+.chip[aria-pressed=true]{outline-color:var(--cocoa)}
+.chip.gold::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff7c9 0 8%,transparent 10%),radial-gradient(circle at 65% 60%,#fff7c9 0 6%,transparent 8%)}
+.name{font-weight:800;font-size:14px;margin:6px 2px 24px;min-height:20px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.ghost{padding:15px 22px;border-radius:99px;border:2px solid var(--cocoa);font-weight:800;transition:transform .3s var(--ease),background .3s}
+.ghost:hover{background:rgba(255,255,255,.5)}
+.ghost:active{transform:scale(.96)}
+.flood{position:fixed;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--ink);z-index:10;transform:scale(0);pointer-events:none;transition:transform 1.05s cubic-bezier(.6,.02,.2,1)}
+.next{position:fixed;inset:0;z-index:11;color:#1d0a02;display:grid;align-content:center;padding:max(24px,6vw);opacity:0;pointer-events:none;transition:opacity .6s .1s}
+body.filled .next{opacity:1;pointer-events:auto}
+.next .k{font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+.next h2{font-size:clamp(44px,9vw,150px);line-height:.9;margin:14px 0 20px;color:#fff8ec}
+.next p{max-width:480px;font-weight:700;font-size:clamp(15px,1.5vw,20px)}
+.next .cta{background:#1d0a02}
+.fallback{display:none;position:fixed;inset:0;place-items:center;text-align:center;padding:30px;font-weight:800;z-index:3}
+@media (max-width:760px){.col{top:auto;bottom:max(46px,6vh);transform:none;max-width:92vw}h1{font-size:clamp(40px,13vw,64px)}.sub{display:none}.chips{margin-top:18px}}
+</style>
+</head>
+<body>
+<div class="stage"><div class="blob b1"></div><div class="blob b2"></div></div>
+<canvas id="c"></canvas>
+<div class="fallback" id="fb">WebGL is not available here. On a normal browser the bonbon is live.</div>
+<div class="nav">
+  <a class="logo" href="#">Anush</a>
+  <div class="right"><span class="tag">Concept</span>
+    <div class="lang"><button data-l="en">EN</button><button data-l="ru">RU</button><button data-l="hy">ՀԱՅ</button></div>
+    <button class="bag" aria-label="Box">0</button></div>
+</div>
+<div class="col">
+  <div class="eyebrow" data-k="eyebrow"></div>
+  <h1 class="display" data-k="h1"></h1>
+  <p class="sub" data-k="sub"></p>
+  <div class="chips" id="chips"></div>
+  <div class="name" id="cname"></div>
+  <div class="row"><button class="cta" id="pour" data-k="pour"></button><button class="ghost" id="clear" data-k="clear"></button></div>
+</div>
+<div class="flood" id="flood"></div>
+<section class="next" id="next">
+  <div class="k" id="nk"></div>
+  <h2 class="display" data-k="next_h"></h2>
+  <p data-k="next_p"></p>
+  <div class="row" style="margin-top:26px"><button class="cta" data-k="cta"></button><button class="ghost" id="replay" data-k="replay" style="border-color:#1d0a02"></button></div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="lang.js"></script>
+<script src="shared.js"></script>
+<script>
+var COPYC = {
+  en:{eyebrow:'Hand-painted · Yerevan',h1:'Paint it. <i>Then taste it.</i>',sub:'Every bonbon is painted by hand before it is filled. Drag across the shell and choose its colour.',pour:'Pour the filling',clear:'Wipe clean',next_h:'Yours <i>exists now.</i>',next_p:'A painted shell, a filling to match. In the shop, this becomes the first bonbon in your box.'},
+  ru:{eyebrow:'Ручная роспись · Ереван',h1:'Раскрасьте. <i>Потом попробуйте.</i>',sub:'Каждую конфету мы расписываем вручную до начинки. Проведите по глазури и выберите цвет.',pour:'Налить начинку',clear:'Стереть',next_h:'Ваша конфета <i>уже есть.</i>',next_p:'Расписная глазурь и подходящая начинка. В магазине это станет первой конфетой вашей коробки.'},
+  hy:{eyebrow:'Ձեռքի նկար · Երևան',h1:'Նկարեք։ <i>Հետո համտեսեք։</i>',sub:'Ամեն բոնբոն նկարվում է ձեռքով՝ նախքան միջուկով լցվելը։ Սահեցրեք մատը թաղանթի վրայով ու ընտրեք գույնը։',pour:'Լցնել միջուկը',clear:'Մաքրել',next_h:'Ձերն <i>արդեն կա։</i>',next_p:'Նկարված թաղանթ և համապատասխան միջուկ։ Խանութում սա կդառնա ձեր տուփի առաջին բոնբոնը։'}
+};
+['en','ru','hy'].forEach(function(l){ for(var k in COPYC[l]) COPY[l][k]=COPYC[l][k]; });
+initLang();
+var JEWELS = [
+  {c:'#ff8a2b',t:'#ffe1c2',n:{en:'Apricot & thyme',ru:'Абрикос и чабрец',hy:'Ծիրան և ուրց'}},
+  {c:'#c4163a',t:'#f9d3d8',n:{en:'Pomegranate ganache',ru:'Гранатовая ганаш',hy:'Նռան գանաշ'}},
+  {c:'#9bc25a',t:'#e6f0cc',n:{en:'Pistachio praline',ru:'Фисташковое пралине',hy:'Պիստակի պրալինե'}},
+  {c:'#f07aa0',t:'#fbd7e4',n:{en:'Rose petal jam',ru:'Варенье из лепестков роз',hy:'Վարդի թերթիկի մուրաբա'}},
+  {c:'#e0a93a',t:'#f6e6b8',n:{en:'Mountain honey, gold dust',ru:'Горный мёд, золотая пыль',hy:'Լեռնային մեղր, ոսկե փոշի'},g:true},
+  {c:'#8e3a7e',t:'#ecd3e6',n:{en:'Mulberry',ru:'Тутовник',hy:'Թութ'}}
+];
+var cur = 0, b, chips = document.getElementById('chips');
+function lang(){ return document.documentElement.lang || 'en'; }
+function pick(i, quiet){
+  cur = i; var j = JEWELS[i];
+  document.documentElement.style.setProperty('--tint', j.t); document.documentElement.style.setProperty('--ink', j.c);
+  document.getElementById('cname').textContent = j.n[lang()];
+  [].forEach.call(chips.children, function(el,k){ el.setAttribute('aria-pressed', k===i); });
+  if (b) { b.paintColor = j.c; b.glitter = !!j.g; b.setFilling(j.c); }
+}
+JEWELS.forEach(function(j,i){ var el=document.createElement('button'); el.className='chip'+(j.g?' gold':''); el.style.setProperty('--c',j.c); el.setAttribute('aria-label',j.n.en); el.onclick=function(){pick(i)}; chips.appendChild(el); });
+document.querySelectorAll('.lang button').forEach(function(x){ x.addEventListener('click', function(){ setTimeout(function(){ pick(cur); },0); }); });
+
+var flood = document.getElementById('flood');
+function anchor(){ return innerWidth < 760 ? {x:0,y:.36,s:1.25} : {x:.56,y:0,s:1.4}; }
+try {
+  b = new Bon.Bonbon(document.getElementById('c'), { paint: true, filling: JEWELS[0].c, anchor: anchor(), brush: .05,
+    onBurst: function () {
+      var c = b.screenCenter(); flood.style.left = c.x + 'px'; flood.style.top = c.y + 'px';
+      document.getElementById('nk').textContent = JEWELS[cur].n[lang()];
+      setTimeout(function () { var d = Math.hypot(Math.max(c.x, innerWidth - c.x), Math.max(c.y, innerHeight - c.y)) * 2 / 40 + 1; flood.style.transform = 'scale(' + d + ')'; }, 450);
+      setTimeout(function () { document.body.classList.add('filled'); }, 1250);
+    } });
+  pick(0);
+  addEventListener('resize', function () { b.anchor = anchor(); b.resize(); });
+  document.getElementById('pour').onclick = function () { b.burst(); };
+  document.getElementById('clear').onclick = function () { b.clearPaint(); };
+  document.getElementById('replay').onclick = function () { document.body.classList.remove('filled'); flood.style.transform = 'scale(0)'; b.reset(); b.clearPaint(); };
+  // the shell paints itself for the first two seconds, then it is yours
+  var seq = [['#ff8a2b', .5], ['#c4163a', .38], ['#e0a93a', .26]], s0 = performance.now(), done = false, lu = null;
+  b.canvas.addEventListener('pointerdown', function () { done = true; }, { once: true });
+  (function auto(now) {
+    if (done) return; var t = Math.max(0, (now - s0) / 3600); if (t > 1) return;
+    var k = Math.min(2, Math.floor(t * 3)), tt = (t * 3) % 1, col = seq[k][0];
+    // three diagonal couture swooshes, painted one after another
+    var u = .4 + .22 * tt, v = seq[k][1] + .2 * tt + Math.sin(tt * 3.14) * .07;
+    if (lu && lu.k === k) { var n = 12; for (var i = 1; i <= n; i++) Bon.brush(b.tex, lu.u + (u - lu.u) * i / n, lu.v + (v - lu.v) * i / n, col, .042, k === 2 && i % 3 === 0); }
+    lu = { u: u, v: v, k: k }; b.map.needsUpdate = true; requestAnimationFrame(auto);
+  })(performance.now());
+} catch (e) { document.getElementById('fb').style.display = 'grid'; console.error(e); }
+</script>
+<a class="back" href="index.html">← Brand board</a>
+</body>
+</html>
